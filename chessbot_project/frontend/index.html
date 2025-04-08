@@ -1,37 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Chess Bot</title>
-  
-  <!-- CSS for Chessboard -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.css" />
-
-  <style>
-    #board {
-      width: 400px;
-      margin: 20px auto;
-    }
-    h1 {
-      text-align: center;
-    }
-  </style>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.css"/>
 </head>
+<body class="dark-mode">
+  <div class="container">
+    <h1>♟️ Play vs AI ♟️</h1>
 
-<body>
-  <h1>Play vs AI</h1>
-  <div id="board"></div>
+    <div class="mode-toggle">
+      <label class="switch">
+        <input type="checkbox" id="modeToggle" checked />
+        <span class="slider"></span>
+      </label>
+    </div>
 
-  <!-- ✅ jQuery is required by Chessboard.js -->
+    <select id="difficulty">
+      <option value="easy">Easy</option>
+      <option value="medium" selected>Medium</option>
+      <option value="hard">Hard</option>
+    </select>
+
+    <div class="timers">
+      <div>White ⏱️ <span id="white-timer">05:00</span></div>
+      <div>Black ⏱️ <span id="black-timer">05:00</span></div>
+    </div>
+
+    <div id="board" class="glow-board"></div>
+
+    <div class="controls">
+      <button onclick="pauseTimers()">⏸️ Pause</button>
+      <button onclick="resumeTimers()">▶️ Resume</button>
+      <button onclick="resetGame()">🔄 Reset</button>
+    </div>
+
+    <div id="status" class="status-text"></div>
+
+    <div id="gameResultModal" class="modal hidden">
+      <div class="modal-content">
+        <h2 id="gameResultText"></h2>
+        <button onclick="resetGame()">Play Again</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
-  <!-- ✅ Chess.js: Game logic -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
-
-  <!-- ✅ Chessboard.js: UI -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.js"></script>
-
-  <!-- ✅ Your custom script -->
   <script src="script.js"></script>
 </body>
 </html>

@@ -1,16 +1,18 @@
-from flask import Flask, jsonify, request
+# app.py
+from flask import Flask, request, jsonify
 from flask_cors import CORS
-
-from routes.chess_routes import chess_routes
+from utils.stockfish_engine import get_best_move
 
 app = Flask(__name__)
 CORS(app)
 
-app.register_blueprint(chess_routes, url_prefix="/chess")
-
-@app.route("/")
-def home():
-    return jsonify({"message": "Chess Bot Backend is running!"})
+@app.route("/chess/get-move", methods=["POST"])
+def get_move():
+    data = request.json
+    fen = data.get("fen")
+    level = data.get("level", "medium").lower()
+    move = get_best_move(fen, level)
+    return jsonify({"best_move": move})
 
 if __name__ == "__main__":
-    app.run(debug=True, port=5000)
+    app.run(debug=True)
