@@ -1,0 +1,7 @@
+__pycache__/
+*.pyc
+*.db
+.env
+venv/
+stockfish/
+node_modules/
